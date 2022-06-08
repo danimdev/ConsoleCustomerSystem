@@ -2,7 +2,7 @@
 
 bool isQuitting = true;
 
-int id = 0;
+int id = 1;
 
 menu();
 
@@ -24,6 +24,9 @@ void menu()
             case 2:
                 ShowAllCustomer();
                 break;
+            case 3:
+                EditCustomer();
+                break;
             default:
                 break;
         }
@@ -32,8 +35,6 @@ void menu()
 
 void CreateCustomer()
 {
-    id++;
-
     Console.Write("CustomerName:");
     string customerName = Console.ReadLine();
     Console.Write("CustomerCity:");
@@ -43,6 +44,7 @@ void CreateCustomer()
 
     customs.Add(new Customer(id, customerName, customerCity, customerPostalCode));
     Console.WriteLine("Created a Customer" + " with ID: " + id);
+    ++id;
 }
 
 void ShowAllCustomer()
@@ -58,15 +60,59 @@ void ShowAllCustomer()
 
 void EditCustomer()
 {
+    bool isEditing = true;
+    Console.Write("id:");
+    int input = Convert.ToInt32(Console.ReadLine());
+    input -= 1;
+    if (!customs.Any())
+        Console.WriteLine($"Customer mit id:{input} Gibt es nicht");
+    else
+        while(isEditing)
+        {
+            customs[input].ShowDetails();
 
+            Console.WriteLine("What do you want to change?");
+            Console.WriteLine("1. Name");
+            Console.WriteLine("2. City");
+            Console.WriteLine("3. Postal Code");
+            Console.WriteLine("4. exit edit menu");
+
+            int switchInput = Convert.ToInt32(Console.ReadLine());
+
+            switch (switchInput)
+            {
+                case 1:
+                    Console.Write("Name:");
+                    string newName = Console.ReadLine();
+                    customs[input].Name = newName;
+                    break;
+                case 2:
+                    Console.Write("City:");
+                    string newCity = Console.ReadLine();
+                    customs[input].City = newCity;
+                    break;
+                case 3:
+                    Console.Write("PostalCode:");
+                    string newPostalCode = Console.ReadLine();
+                    customs[input].PostalCode = newPostalCode;
+                    break;
+                case 4:
+                    isEditing = false;
+                    Console.Clear();
+                    break;
+                default:
+                    break;
+            }
+            Console.Clear();
+        }
 }
 
 public class Customer
 {
-    int ID;
-    string Name;
-    string City;
-    string PostalCode;
+    public int ID;
+    public string Name;
+    public string City;
+    public string PostalCode;
 
     public Customer(int iD, string name, string city, string postalCode)
     {
