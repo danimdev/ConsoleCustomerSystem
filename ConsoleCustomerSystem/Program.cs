@@ -61,13 +61,14 @@ void ShowAllCustomer()
 void EditCustomer()
 {
     bool isEditing = true;
+
     Console.Write("id:");
     int input = Convert.ToInt32(Console.ReadLine());
+    
     input -= 1;
-    if (!customs.Any())
-        Console.WriteLine($"Customer mit id:{input} Gibt es nicht");
-    else
-        while(isEditing)
+
+    if (customs.Any()) {
+        while (isEditing)
         {
             customs[input].ShowDetails();
 
@@ -105,6 +106,9 @@ void EditCustomer()
             }
             Console.Clear();
         }
+    }
+    else
+        Console.WriteLine($"Customer mit id:{input} Gibt es nicht");
 }
 
 public class Customer
