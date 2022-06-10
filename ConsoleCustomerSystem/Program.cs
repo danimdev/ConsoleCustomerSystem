@@ -63,52 +63,54 @@ void EditCustomer()
     bool isEditing = true;
 
     Console.Write("id:");
-    int input = Convert.ToInt32(Console.ReadLine());
-    
-    input -= 1;
+    int input = Convert.ToInt32(Console.ReadLine()) - 1;
 
     if (customs.Any()) {
-        while (isEditing)
+        if (customs.Exists(x => x.ID == input + 1))
         {
-            customs[input].ShowDetails();
-
-            Console.WriteLine("What do you want to change?");
-            Console.WriteLine("1. Name");
-            Console.WriteLine("2. City");
-            Console.WriteLine("3. Postal Code");
-            Console.WriteLine("4. exit edit menu");
-
-            int switchInput = Convert.ToInt32(Console.ReadLine());
-
-            switch (switchInput)
+            while (isEditing)
             {
-                case 1:
-                    Console.Write("Name:");
-                    string newName = Console.ReadLine();
-                    customs[input].Name = newName;
-                    break;
-                case 2:
-                    Console.Write("City:");
-                    string newCity = Console.ReadLine();
-                    customs[input].City = newCity;
-                    break;
-                case 3:
-                    Console.Write("PostalCode:");
-                    string newPostalCode = Console.ReadLine();
-                    customs[input].PostalCode = newPostalCode;
-                    break;
-                case 4:
-                    isEditing = false;
-                    Console.Clear();
-                    break;
-                default:
-                    break;
+                customs[input].ShowDetails();
+
+                Console.WriteLine("What do you want to change?");
+                Console.WriteLine("1. Name");
+                Console.WriteLine("2. City");
+                Console.WriteLine("3. Postal Code");
+                Console.WriteLine("4. exit edit menu");
+
+                int switchInput = Convert.ToInt32(Console.ReadLine());
+
+                switch (switchInput)
+                {
+                    case 1:
+                        Console.Write("Name:");
+                        string newName = Console.ReadLine();
+                        customs[input].Name = newName;
+                        break;
+                    case 2:
+                        Console.Write("City:");
+                        string newCity = Console.ReadLine();
+                        customs[input].City = newCity;
+                        break;
+                    case 3:
+                        Console.Write("PostalCode:");
+                        string newPostalCode = Console.ReadLine();
+                        customs[input].PostalCode = newPostalCode;
+                        break;
+                    case 4:
+                        isEditing = false;
+                        Console.Clear();
+                        break;
+                    default:
+                        break;
+                }
+                Console.Clear();
             }
-            Console.Clear();
         }
     }
     else
-        Console.WriteLine($"Customer mit id:{input} Gibt es nicht");
+        Console.WriteLine($"Customer mit id:{input + 1} Gibt es nicht");
+    input--;
 }
 
 public class Customer
