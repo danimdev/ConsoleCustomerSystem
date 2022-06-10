@@ -13,6 +13,7 @@ void menu()
         Console.WriteLine("1. Create New Customer");
         Console.WriteLine("2. Show Avaible Customer");
         Console.WriteLine("3. Edit Customer");
+        Console.WriteLine("4. Exit");
 
         int input = Convert.ToInt32(Console.ReadLine());
 
@@ -27,6 +28,8 @@ void menu()
             case 3:
                 EditCustomer();
                 break;
+            case 4:
+                return;
             default:
                 break;
         }
